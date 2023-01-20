@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="row mt-4 ">
+    <div class="col-md-8 offset-2">
+        <a href="{% url 'task:index' %}"><i class="bi bi-arrow-left-circle-fill"></i>Back to List</a>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="id_title" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    {{form.title}}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="id_status" class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-10">
+                    {{form.status}}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="id_priority" class="col-sm-2 col-form-label">Priority</label>
+                <div class="col-sm-10">
+                    {{form.priority}}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="id_description" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                    {{form.description}}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="id_deadline" class="col-sm-2 col-form-label">DeadLine</label>
+                <div class="col-sm-10">
+                    {{form.deadline}}
+                </div>
+            </div>
+            <div>
+                <code>Created Date: {{obj.created_date}}</code><br>
+                <code>Last Modified: {{obj.modified_date}}</code>
+            </div>
+            <a href="{% url 'task:delete' obj.id %}" class="btn btn-danger">Delete</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

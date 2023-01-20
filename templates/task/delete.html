@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="row mt-3">
+    <form method="post">
+        {% csrf_token %}
+        <div class="alert alert-danger">Siz Rostan ham """{{obj.title}}"""ni o'chirmoqchimisiz</div>
+        <a href="{% url 'task:index' %}" class="btn btn-secondary">Yoq</a>
+        <button type="submit" class="btn btn-danger">HA</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-8 offset-2 mt-4">
+
+  <form method="post">
+    {% csrf_token %}
+    <h1>Siz Rostan Ham chiqmoqchimisiz</h1>
+    <div>
+        <a class="btn btn-secondary" href="{% url 'task:index' %}">Yoq</a>
+        <button class="btn btn-danger" type="submit">Ha</button>
+    </div>
+        <code class="mt-4 text-secondary">Agar ro'yxatdan o'tmagan bo'lsangiz <a href="{% url 'account:register' %}">Register</a> Tugmasini Bosing</code>
+  </form>
+
+</div>
+
+{% endblock %}

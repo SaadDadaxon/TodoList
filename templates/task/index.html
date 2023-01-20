@@ -9,17 +9,17 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="New Task..."
+                    <input type="text" name="title" class="form-control" placeholder="New Task..."
                            aria-label="Recipient's username"
                            aria-describedby="button-addon2">
                     <button class="btn btn-outline-primary " type="submit" id="button-addon2">+ Add Task</button>
                 </div>
             </form>
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <a class="btn btn-primary">Todo</a>
-                <a class="btn btn-primary">In Process</a>
-                <a class="btn btn-primary">Done</a>
-                <a class="btn btn-primary">Cancelled</a>
+                <a href="?status={{0}}" class="btn btn-primary">Todo</a>
+                <a href="?status={{1}}" class="btn btn-primary">In Process</a>
+                <a href="?status={{2}}" class="btn btn-primary">Done</a>
+                <a href="?status={{3}}" class="btn btn-primary">Cancelled</a>
 
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
@@ -27,27 +27,52 @@
                         Dropdown
                     </button>
                     <ul class="dropdown-menu">
-                        <li><input type="datetime-local" name="start_date" class="form-control mt-2"></li>
-                        <li><input type="datetime-local" name="start_date" class="form-control mt-2"></li>
+                        <li><a href="?priority=0">Lowes</a></li>
+                        <li><a href="?priority=1">Low</a></li>
+                        <li><a href="?priority=2">Medium</a></li>
+                        <li><a href="?priority=3">High</a></li>
+                        <li><a href="?priority=4">Highest</a></li>
                     </ul>
                 </div>
             </div>
             <ul class="list-group">
+                {% for obj in object_list %}
                 <li class="mt-3 border list-group-item d-flex justify-content-between align-items-center">
-                    <a href="">A list item</a>
+                    <div class="text-left">
+                        <a href="">{{obj.title}}</a>
+                        {% if obj.priority == 0 %}
+                            <span class="text-success bold p-2">
+                                <i class="bi bi-chevron-double-down"></i>
+                            </span>
+                        {% endif %}
+                        {% if obj.priority == 1 %}
+                            <span class="text-primary bold p-2">
+                                <i class="bi bi-chevron-down"></i>
+                            </span>
+                        {% endif %}
+                        {% if obj.priority == 2 %}
+                            <span class="text-warning bold p-2">
+                                <i class="bi bi-list"></i>
+                            </span>
+                        {% endif %}
+                        {% if obj.priority == 3 %}
+                            <span class="text-warning">
+                                <i class="bi bi-chevron-up p-2"></i>
+                            </span>
+                        {% endif %}
+                        {% if obj.priority == 4 %}
+                            <span class="text-danger bold p-2">
+                                <i class="bi bi-chevron-double-up"></i>
+                            </span>
+                        {% endif %}
+                        <p class="m-0 text-muted">Deadline: {{obj.deadline}}</p>
+                    </div>
                     <span class="">
-                        <a href="" class="text-primary p-3">Edit</a>
-                        <a href="" class="text-danger pt-3 pb-3">Delete</a>
+                        <a href="{% url 'task:edit' obj.id %}" class="text-primary p-3">Edit</a>
+                        <a href="{% url 'task:delete' obj.id %}" class="text-danger pt-3 pb-3">Delete</a>
                     </span>
                 </li>
-                <li class="mt-3 border list-group-item d-flex justify-content-between align-items-center">
-                    A second list item
-                    <span class="badge bg-primary rounded-pill">2</span>
-                </li>
-                <li class="mt-3 border list-group-item d-flex justify-content-between align-items-center">
-                    A third list item
-                    <span class="badge bg-primary rounded-pill">1</span>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
